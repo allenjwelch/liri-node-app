@@ -37,7 +37,6 @@ function liriCommands() {
         spotifyGet(); 
       } else {
         songName = userInput.join(' '); 
-        console.log(songName); 
         spotifyGet(); 
       }
       break; 
@@ -83,13 +82,10 @@ function needHelp() {
         liriCmd = inputA.userHelp; 
         userInput = inputB.userSearch; 
         userInput = userInput.split(' ');  
-        console.log('userInput ' + userInput); 
-        console.log('liriCmd '  + liriCmd); 
-        liriCommands();
+         liriCommands();
       }); 
     } else {
-      liriCmd = input.userHelp; 
-      console.log(liriCmd); 
+      liriCmd = inputA.userHelp; 
       liriCommands();
     }
   }); 
