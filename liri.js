@@ -9,12 +9,11 @@ const fs = require('fs');
 // EX: fs.readFile('bank.txt', 'utf8', (err,data) => {
 
 // USER INPUTS
-const liriCmd = process.argv[2]; 
-const userInput = process.argv; 
+let liriCmd = process.argv[2]; 
+let userInput = process.argv; 
   userInput.splice(0, 3);
-// let songName = userInput;
-// let movieName = userInput;
-
+let songName;
+let movieName;
 
 // KEYS 
 const spotify = new Spotify(keys.spotify); 
@@ -23,43 +22,50 @@ const client = new Twitter(keys.twitter);
 // console.log(client.options); 
 // console.log(spotify.credentials);
 
-switch (liriCmd) {
-  case 'my-tweets':
-    twitterGet(); 
-    break; 
-  case 'spotify-this-song':
-    if (typeof userInput[0] === 'undefined') {
-      var songName = 'the sign ace of base'; 
-      spotifyGet(); 
-    } else {
-      var songName = userInput.join(' '); 
-      spotifyGet(); 
-    }
-      break; 
-  case 'movie-this':
-    if (typeof userInput[0] === 'undefined') {
-      var movieName = 'Mr.Nobody'; 
-      omdbGet();  
-    } else {
-      var movieName = userInput.join(' '); 
-      omdbGet(); 
-    }
-    break; 
-  case 'do-what-it-says':
-    // code; 
-    doItFig(); 
-    // setTimeout(() => {
-    fs.readFile('random.txt', 'utf-8', (err,data) => {
-      if (err) { return console.log(err); }
+liriCommands(); 
 
-    })
-    // }, 500); 
-    break; 
+function liriCommands() {
+  switch (liriCmd) {
+    case 'my-tweets':
+      twitterGet(); 
+      break; 
+    case 'spotify-this-song':
+      if (typeof userInput[0] === 'undefined') {
+        songName = 'the sign ace of base'; 
+        spotifyGet(); 
+      } else {
+        songName = userInput.join(' '); 
+        spotifyGet(); 
+      }
+      break; 
+    case 'movie-this':
+      if (typeof userInput[0] === 'undefined') {
+        movieName = 'Mr.Nobody'; 
+        omdbGet();  
+      } else {
+        movieName = userInput.join(' '); 
+        omdbGet(); 
+      }
+      break; 
+    case 'do-what-it-says':
+      doIt(); 
+      break; 
+  }
 }
 
-// 4. `node liri.js do-what-it-says`
-//    * Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-
+function doIt() {
+  doItFig(); 
+  setTimeout(() => {
+    fs.readFile('random.txt', 'utf-8', (err,data) => {
+      if (err) { return console.log(err); }
+      const readFileArr = data.split(','); 
+        liriCmd = readFileArr[0];
+        userInput = readFileArr[1].split(' '); 
+        console.log('=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/='); 
+      liriCommands(); 
+    })
+  }, 500); 
+}
 
 function omdbGet() {
   omdbFig(); 
@@ -68,7 +74,7 @@ function omdbGet() {
     request(omdbURL, function(err, response, body) {
       if (!err && response.statusCode === 200) {
         const data = JSON.parse(body);
-        console.log('\n====================')
+        console.log('\n=====================================');
         console.log(`Title: ${data.Title}`);
         console.log(`Year: ${data.Year}`);
         console.log(`IMDB Rating: ${data.imdbRating}`);
@@ -77,7 +83,7 @@ function omdbGet() {
         console.log(`Language: ${data.Language}`);
         console.log(`Actors: ${data.Actors}`);
         console.log(`Plot: ${data.Plot}`);
-        console.log('====================')
+        console.log('=====================================');
       }; 
     });
   }, 500); 
@@ -89,32 +95,32 @@ function spotifyGet() {
       spotify.search({ type: 'track', query: songName }, function(err, data) {
         if(err) throw err; 
         // console.log(data.tracks.items[0]); 
-        console.log('\n====================')
+        console.log('\n=====================================');
         console.log(`Artist: ${data.tracks.items[0].artists[0].name}`);
         console.log(`Track: ${data.tracks.items[0].name}`); 
         console.log(`Album: ${data.tracks.items[0].album.name}`);
         console.log(`Link: ${data.tracks.items[0].album.external_urls.spotify}`);
-        console.log('====================')
+        console.log('=====================================');
       });
     }, 500); 
 }
 
-function spotifyGetAoB() {
-  spotifyFig(); 
-      setTimeout(() => {
-      spotify.search({ type: 'track', query: 'the sign ace of base' }, function(err, data) {
-        if(err) throw err; 
-        // console.log(data.tracks.items[0]); 
-        console.log('\nNeed a suggestion? How about...'); 
-        console.log('\n====================')
-        console.log(`Artist: ${data.tracks.items[0].artists[0].name}`);
-        console.log(`Track: ${data.tracks.items[0].name}`); 
-        console.log(`Album: ${data.tracks.items[0].album.name}`);
-        console.log(`Link: ${data.tracks.items[0].album.external_urls.spotify}`);
-        console.log('====================')
-      });
-    }, 500); 
-}
+// function spotifyGetAoB() {
+//   spotifyFig(); 
+//       setTimeout(() => {
+//       spotify.search({ type: 'track', query: 'the sign ace of base' }, function(err, data) {
+//         if(err) throw err; 
+//         // console.log(data.tracks.items[0]); 
+//         console.log('\nNeed a suggestion? How about...'); 
+//         console.log('\n====================')
+//         console.log(`Artist: ${data.tracks.items[0].artists[0].name}`);
+//         console.log(`Track: ${data.tracks.items[0].name}`); 
+//         console.log(`Album: ${data.tracks.items[0].album.name}`);
+//         console.log(`Link: ${data.tracks.items[0].album.external_urls.spotify}`);
+//         console.log('====================')
+//       });
+//     }, 500); 
+// }
 
 function twitterGet() {
   // client.get(path, params, callback);
@@ -123,10 +129,10 @@ function twitterGet() {
     client.get('https://api.twitter.com/1.1/favorites/list.json', function(err, tweets, response) {
       if(err) throw err;
       tweets.forEach(tweet => {
-        console.log('\n====================')
+        console.log('\n=====================================');
         console.log(`Date: ${tweet.created_at}`);  // Statuses 
         console.log(`\n${tweet.text}`);  // Statuses 
-        console.log('====================')
+        console.log('=====================================');
       })
     });
   }, 500);
@@ -160,7 +166,7 @@ function spotifyFig() {
       return;
     }
     console.log(data)
-    console.log('"Liri, I\'d like some music to set the mood."')
+    console.log('\n"Liri, I\'d like some music to set the mood."')
 
   });
 }
@@ -196,9 +202,3 @@ function doItFig() {
     console.log(data)
   });
 }
-
-
-// module.exports = {
-//   essentials: essentials,
-//   niceToHaves: niceToHaves
-// };
