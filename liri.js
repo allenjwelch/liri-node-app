@@ -6,6 +6,8 @@ const Twitter = require('twitter');
 const Spotify = require('node-spotify-api');
 const request = require('request');
 const fs = require('fs'); 
+const help = require('inquirer'); 
+
 // EX: fs.readFile('bank.txt', 'utf8', (err,data) => {
 
 // USER INPUTS
@@ -35,6 +37,7 @@ function liriCommands() {
         spotifyGet(); 
       } else {
         songName = userInput.join(' '); 
+        console.log(songName); 
         spotifyGet(); 
       }
       break; 
@@ -50,7 +53,46 @@ function liriCommands() {
     case 'do-what-it-says':
       doIt(); 
       break; 
+    case 'help':
+      needHelp(); 
+      break; 
   }
+}
+
+function needHelp() {
+  help
+  .prompt([
+    {
+      type: 'list', 
+      message: 'Select an option below:', 
+      choices: ['my-tweets', 'spotify-this-song', 'movie-this', 'do-what-it-says'],
+      name: 'userHelp'
+    }
+  ])
+  .then(inputA => {
+    if (inputA.userHelp === 'spotify-this-song' || inputA.userHelp === 'movie-this') {
+      help
+      .prompt([
+        {
+          type: 'input', 
+          message: 'What would you like to search?', 
+          name: 'userSearch'
+        }
+      ])
+      .then(inputB => {
+        liriCmd = inputA.userHelp; 
+        userInput = inputB.userSearch; 
+        userInput = userInput.split(' ');  
+        console.log('userInput ' + userInput); 
+        console.log('liriCmd '  + liriCmd); 
+        liriCommands();
+      }); 
+    } else {
+      liriCmd = input.userHelp; 
+      console.log(liriCmd); 
+      liriCommands();
+    }
+  }); 
 }
 
 function doIt() {
@@ -105,23 +147,6 @@ function spotifyGet() {
     }, 500); 
 }
 
-// function spotifyGetAoB() {
-//   spotifyFig(); 
-//       setTimeout(() => {
-//       spotify.search({ type: 'track', query: 'the sign ace of base' }, function(err, data) {
-//         if(err) throw err; 
-//         // console.log(data.tracks.items[0]); 
-//         console.log('\nNeed a suggestion? How about...'); 
-//         console.log('\n====================')
-//         console.log(`Artist: ${data.tracks.items[0].artists[0].name}`);
-//         console.log(`Track: ${data.tracks.items[0].name}`); 
-//         console.log(`Album: ${data.tracks.items[0].album.name}`);
-//         console.log(`Link: ${data.tracks.items[0].album.external_urls.spotify}`);
-//         console.log('====================')
-//       });
-//     }, 500); 
-// }
-
 function twitterGet() {
   // client.get(path, params, callback);
   tweetFig(); 
@@ -156,7 +181,7 @@ function tweetFig() {
 
 function spotifyFig() {
   figlet('Spotify', {
-    font: 'big',
+    font: 'doom',
     horizontalLayout: 'default',
     verticalLayout: 'default'
   }, function(err, data) {
@@ -173,7 +198,7 @@ function spotifyFig() {
 
 function omdbFig() {
   figlet('OMDB', {
-    font: 'big',
+    font: 'slant',
     horizontalLayout: 'default',
     verticalLayout: 'default'
   }, function(err, data) {
@@ -190,7 +215,7 @@ function omdbFig() {
 
 function doItFig() {
   figlet('Do it!', {
-    font: 'big',
+    font: 'Crawford2',
     horizontalLayout: 'default',
     verticalLayout: 'default'
   }, function(err, data) {
