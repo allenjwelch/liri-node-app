@@ -4,8 +4,7 @@ https://allenjwelch.github.io/liri-node-app/
 
 ![title image](liri.PNG)
 
-### Node Application
-_must be run within terminal/bash_
+### Node Application _must be run within terminal/bash_
 User type can input the following terminal commands to access various APIs. 
 1. `node liri.js my-tweets`
   - Access the last 20 favorite tweets from user account
