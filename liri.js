@@ -99,7 +99,7 @@ function doIt() {
       const readFileArr = data.split(','); 
         liriCmd = readFileArr[0];
         userInput = readFileArr[1].split(' '); 
-        console.log('=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/='); 
+        console.log('=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/='); 
       liriCommands(); 
     })
   }, 500); 
@@ -210,7 +210,7 @@ function omdbFig() {
 }
 
 function doItFig() {
-  figlet('Do it!', {
+  figlet('Liri, help me find...', {
     font: 'Crawford2',
     horizontalLayout: 'default',
     verticalLayout: 'default'
