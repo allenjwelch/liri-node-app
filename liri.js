@@ -10,9 +10,10 @@ const fs = require('fs');
 
 // USER INPUTS
 const liriCmd = process.argv[2]; 
-let songName = process.argv; 
-let movieName = process.argv; 
-  movieName.splice(0,3); 
+const userInput = process.argv; 
+  userInput.splice(0, 3);
+// let songName = userInput;
+// let movieName = userInput;
 
 
 // KEYS 
@@ -27,19 +28,20 @@ switch (liriCmd) {
     twitterGet(); 
     break; 
   case 'spotify-this-song':
-    if (typeof songName[0] === 'undefined') {
-      spotifyGetAoB(); 
+    if (typeof userInput[0] === 'undefined') {
+      var songName = 'the sign ace of base'; 
+      spotifyGet(); 
     } else {
-      var songNameStr = songName.join(' '); 
+      var songName = userInput.join(' '); 
       spotifyGet(); 
     }
       break; 
   case 'movie-this':
-    if (typeof movieName[0] === 'undefined') {
-      var movieNameStr = 'Mr.Nobody'; 
+    if (typeof userInput[0] === 'undefined') {
+      var movieName = 'Mr.Nobody'; 
       omdbGet();  
     } else {
-      var movieNameStr = movieName.join(' '); 
+      var movieName = userInput.join(' '); 
       omdbGet(); 
     }
     break; 
@@ -47,7 +49,10 @@ switch (liriCmd) {
     // code; 
     doItFig(); 
     // setTimeout(() => {
+    fs.readFile('random.txt', 'utf-8', (err,data) => {
+      if (err) { return console.log(err); }
 
+    })
     // }, 500); 
     break; 
 }
@@ -58,7 +63,7 @@ switch (liriCmd) {
 
 function omdbGet() {
   omdbFig(); 
-  const omdbURL = `http://www.omdbapi.com/?apikey=trilogy&t=${movieNameStr}`;
+  const omdbURL = `http://www.omdbapi.com/?apikey=trilogy&t=${movieName}`;
   setTimeout(() => {
     request(omdbURL, function(err, response, body) {
       if (!err && response.statusCode === 200) {
@@ -81,7 +86,7 @@ function omdbGet() {
 function spotifyGet() {
   spotifyFig(); 
     setTimeout(() => {
-      spotify.search({ type: 'track', query: songNameStr }, function(err, data) {
+      spotify.search({ type: 'track', query: songName }, function(err, data) {
         if(err) throw err; 
         // console.log(data.tracks.items[0]); 
         console.log('\n====================')
