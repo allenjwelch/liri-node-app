@@ -80,9 +80,14 @@ function needHelp() {
       ])
       .then(inputB => {
         liriCmd = inputA.userHelp; 
-        userInput = inputB.userSearch; 
-        userInput = userInput.split(' ');  
-         liriCommands();
+        if (inputB.userSearch === '') {
+          console.log('You have to choose something to search...'); 
+        } else {
+          liriCmd = inputA.userHelp; 
+          userInput = inputB.userSearch; 
+          userInput = userInput.split(' ');  
+          liriCommands();
+        }
       }); 
     } else {
       liriCmd = inputA.userHelp; 
@@ -132,7 +137,7 @@ function spotifyGet() {
     setTimeout(() => {
       spotify.search({ type: 'track', query: songName }, function(err, data) {
         if(err) throw err; 
-        // console.log(data.tracks.items[0]); 
+        // console.log(data); 
         console.log('\n=====================================');
         console.log(`Artist: ${data.tracks.items[0].artists[0].name}`);
         console.log(`Track: ${data.tracks.items[0].name}`); 
@@ -148,6 +153,7 @@ function twitterGet() {
   tweetFig(); 
   setTimeout(() =>{
     client.get('https://api.twitter.com/1.1/favorites/list.json', function(err, tweets, response) {
+      // status.user_timeline
       if(err) throw err;
       tweets.forEach(tweet => {
         console.log('\n=====================================');
