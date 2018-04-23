@@ -3,8 +3,9 @@
 https://allenjwelch.github.io/liri-node-app/
 
 ![title image](liri.PNG)
-[Watch the Video Demo](liriVid.mp4)
 ![LiriDemo](liriDemo.gif)
+
+[Download the Video Demo](liriVid.mp4)
 
 
 
