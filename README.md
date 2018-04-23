@@ -3,7 +3,10 @@
 https://allenjwelch.github.io/liri-node-app/
 
 ![title image](liri.PNG)
-[Watch the Video Demo](liriVid.mp4).
+[Watch the Video Demo](liriVid.mp4)
+![LiriDemo](liriDemo.gif)
+
+
 
 
 ### Node Application _(must be run within terminal/bash)_
