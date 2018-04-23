@@ -4,7 +4,8 @@ https://allenjwelch.github.io/liri-node-app/
 
 ![title image](liri.PNG)
 
-<video id="titleVid" width="420" height="380" >
+<script src="http://vjs.zencdn.net/4.0/video.js"></script>
+<video id="titleVid" width="420" height="380" poster='liri.PNG'>
     <source src="liriVid.mp4" type="video/mp4">
 </video>
 
