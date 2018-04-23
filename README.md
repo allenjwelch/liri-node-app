@@ -4,6 +4,10 @@ https://allenjwelch.github.io/liri-node-app/
 
 ![title image](liri.PNG)
 
+<video id="titleVid" width="420" height="380" >
+    <source src="liriVid.mp4" type="video/mp4">
+</video>
+
 ### Node Application _(must be run within terminal/bash)_
 User type can input the following terminal commands to access various APIs. 
 1. `node liri.js my-tweets`
