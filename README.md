@@ -3,11 +3,8 @@
 https://allenjwelch.github.io/liri-node-app/
 
 ![title image](liri.PNG)
+![title image](liriVid.mp4)
 
-<script src="http://vjs.zencdn.net/4.0/video.js"></script>
-<video id="titleVid" width="420" height="380" poster='liri.PNG'>
-    <source src="liriVid.mp4" type="video/mp4">
-</video>
 
 ### Node Application _(must be run within terminal/bash)_
 User type can input the following terminal commands to access various APIs. 
